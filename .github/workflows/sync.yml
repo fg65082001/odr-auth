@@ -1,5 +1,7 @@
-name: Sync from Grok
+name: Sync from odr-sourcecode
 on:
+  repository_dispatch:
+    types: [sync]
   workflow_dispatch:
 jobs:
   sync:
@@ -8,9 +10,9 @@ jobs:
     - uses: actions/checkout@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Pull latest odr-auth.php
+    - name: Pull from odr-sourcecode
       run: |
-        curl -o odr-auth.php https://pastebin.com/raw/7kP9mJqN
+        curl -o odr-auth.php https://raw.githubusercontent.com/fg65082001/odr-sourcecode/main/odr-auth.php
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: "Update to version 1.5.8 from Grok (fixed)"
+        commit_message: "Sync odr-auth.php from odr-sourcecode"
